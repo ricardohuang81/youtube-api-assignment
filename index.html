@@ -85,54 +85,6 @@
     const goButton = document.querySelector('.btn-default');
     const inputArea = document.querySelector('.form-control');
     let searchVal;
-    var apiKey = "AIzaSyBF1lGEwcVdjTQfkOz_IydXKfQL3RoYmEg";
-    
-    if (!searchVal) {
-      $.ajax({
-        url: "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=4&q=catchemall&safeSearch=moderate&type=video&videoEmbeddable=true&fields=items(id%2Csnippet)&key=" + apiKey,
-        dataType: "json",
-        success: function (json) {
-          console.log("[json]", json);
-          var videos = json.items;
-          console.log("[videos]", videos);
-          for (var i = 0; i < videos.length; i++) {
-            addVideoToList(videos[i]);
-          }
-        }
-      });
-    }
-
-    inputArea.addEventListener('keyup', function(event) {
-      event.preventDefault();
-      if (event.keyCode === 13) {
-        goButton.click();
-      }
-    })
-
-    function searchYouTube() {
-      goButton.addEventListener('click', function (event) {
-        event.preventDefault();
-        searchVal = document.querySelector('.form-control').value;
-        console.log('[searchVal]', searchVal);
-        document.querySelector('#videos-list').innerHTML = "";
-        $.ajax({
-          url: "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=4&q=" + searchVal + "&safeSearch=moderate&type=video&videoEmbeddable=true&fields=items(id%2Csnippet)&key=" + apiKey,
-          dataType: "json",
-          success: function (json) {
-            console.log("[json]", json);
-            var videos = json.items;
-            console.log("[videos]", videos);
-            for (var i = 0; i < videos.length; i++) {
-              addVideoToList(videos[i]);
-            }
-          }
-        });
-        document.querySelector('#video-watcher').innerHTML = "";
-        document.querySelector('.form-control').value = "";
-      });
-    }
-
-    searchYouTube();
     
     function addVideoToList(video) {
       var videoLink = $('<a>');
@@ -162,7 +114,57 @@
       var videoItem = $('<li>');
       videoItem.append(videoLink);
       $('#videos-list').append(videoItem);
+    };
+
+    var apiKey = "AIzaSyBF1lGEwcVdjTQfkOz_IydXKfQL3RoYmEg";
+
+    if (!searchVal) {
+      $.ajax({
+        url: "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=4&q=catchemall&safeSearch=moderate&type=video&videoEmbeddable=true&fields=items(id%2Csnippet)&key=" + apiKey,
+        dataType: "json",
+        success: function (json) {
+          console.log("[json]", json);
+          var videos = json.items;
+          console.log("[videos]", videos);
+          for (var i = 0; i < videos.length; i++) {
+            addVideoToList(videos[i]);
+          }
+        }
+      });
     }
+
+    inputArea.addEventListener('keyup', function(event) {
+      event.preventDefault();
+      if (event.keyCode === 13) {
+        goButton.click();
+      }
+    })
+
+    function searchYouTube() {
+      goButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        searchVal = document.querySelector('.form-control').value;
+        document.querySelector('#videos-list').innerHTML = "";
+        $.ajax({
+          url: "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=4&q=" + searchVal + "&safeSearch=moderate&type=video&videoEmbeddable=true&fields=items(id%2Csnippet)&key=" + apiKey,
+          dataType: "json",
+          success: function (json) {
+            console.log("[json]", json);
+            var videos = json.items;
+            console.log("[videos]", videos);
+            for (var i = 0; i < videos.length; i++) {
+              addVideoToList(videos[i]);
+            }
+          }
+        });
+        document.querySelector('#video-watcher').innerHTML = "";
+        document.querySelector('.form-control').value = "";
+      });
+    }
+
+    searchYouTube();
+    
+    
 
   </script>
   
