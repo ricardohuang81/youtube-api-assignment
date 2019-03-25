@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Fresh Fishing Vids!</title>
+
+  <link rel="stylesheet" type="text/css" href="http://www.teaching-materials.org/common/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  
+  
+
+  <style type="text/css">
+    /* This puts titles always on a separate line from thumbnails */
+    #videos-list img {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="page-header">🐡🐬🐳🦈🐟🐙 Famous Fish YouTubers 🐙🐠🦈🐋🐬🐡</h2>
+
+          <div id="socialMedia">
+
+            <!-- Facebook Button -->
+            <iframe
+              src="https://www.facebook.com/plugins/share_button.php?href=https://www.youtube.com/channel/UC7MCFUG5oKKsfVDl7gT7BRA/videos&layout=button&size=small&width=59&height=20&appId"
+              width="59" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"
+              allow="encrypted-media">
+            </iframe>
+
+            <!-- Twitter Button -->
+            <a 
+              class="twitter-share-button"
+              href="https://twitter.com/share?count=none&url=https://www.youtube.com/channel/UC7MCFUG5oKKsfVDl7gT7BRA/videos&hashtags=CatchEmAllFishing"
+            >
+              Tweet
+            </a>
+            <script>
+              !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");
+            </script>
+          
+            <!-- LinkedIn Button -->
+            <script src="https://platform.linkedin.com/in.js" type="text/javascript">lang: en_US</script>
+            <script style="margin-bottom: 5px;" type="IN/Share" data-url="https://www.youtube.com/channel/UC7MCFUG5oKKsfVDl7gT7BRA/videos"></script>
+
+          </div>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <ul id="videos-list">
+        </ul>
+      </div>
+      <div class="col-md-9" id="video-watcher">
+      </div>
+    </div>
+
+  </div>
+
+  
+
+  <script type="text/javascript" src="http://www.teaching-materials.org/common/youtube.js"></script>
+  <script type="text/javascript" src="http://www.teaching-materials.org/common/js/jquery.min.js"></script>
+
+  
+
+  <script>
+    function addVideoToList(video) {
+      var videoLink = $('<a>');
+      videoLink.append(video.snippet.title);
+      videoLink.append('<br>');
+      var linkUrl = videoLink.attr('href');
+      var thumbnailImg = $('<img>');
+      thumbnailImg.attr('src', video.snippet.thumbnails.medium.url);
+      videoLink.append(thumbnailImg);
+      videoLink.on('click', function (e) {
+        e.preventDefault();
+        var videoTitle = $('<h2>');
+        videoTitle.html(video.snippet.title);
+        // videoTitle.html(video.snippet.title + ' <small>' + video.snippet.channelTitle + '</small>');
+        videoTitle.attr('id', 'title');
+        var videoEmbed = $('<iframe></iframe>');
+        videoEmbed.attr('src', youtube.generateEmbedUrl(video.id.videoId) + '?autoplay=1');
+        videoEmbed.attr('width', 560);
+        videoEmbed.attr('height', 315);
+        var videoRating = $('<img></img>');
+        // videoRating.attr('src', 'https://chart.googleapis.com/chart?chs=225x125&cht=gom&chd=t:' + video.rating);
+        var videoWatcher = $('#video-watcher');
+        videoWatcher.hide();
+        videoWatcher.empty();
+        videoWatcher.append(videoTitle);
+        videoWatcher.append(videoEmbed);
+        // videoWatcher.append(videoRating);
+        videoWatcher.fadeIn();
+      });
+      var videoItem = $('<li>');
+      videoItem.append(videoLink);
+      $('#videos-list').append(videoItem);
+    }
+    var apiKey = "AIzaSyBF1lGEwcVdjTQfkOz_IydXKfQL3RoYmEg";
+    $.ajax({
+      url: "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=catchemall&safeSearch=none&type=video&videoEmbeddable=true&fields=items(id%2Csnippet)&key=" + apiKey,
+      dataType: "json",
+      success: function (json) {
+        console.log("[json]", json);
+        var videos = json.items;
+        console.log("[videos]", videos);
+        for (var i = 0; i < videos.length; i++) {
+          addVideoToList(videos[i]);
+        }
+      }
+    });
+  </script>
+  
+</body>
+</html>
