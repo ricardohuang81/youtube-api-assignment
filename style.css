@@ -10,12 +10,32 @@ body {
     text-align: center;
 }
 
+#headerText:hover {
+    cursor: pointer;
+    color: yellow;
+    /* opacity: 0.7; */
+}
+
 #socialMedia {
     text-align: center;
 }
 
 .IN-2bc0215c-7188-4274-b598-1969e06d4d7c-1G9ISYhSF8XoOmdcl0yKDu {
     margin-bottom: 6px;
+}
+
+.col-md-8 {
+    text-align: center;
+    margin: 20px 15%;
+}
+
+.form-control {
+    border: 1px solid hotpink;
+    text-transform: uppercase;
+}
+
+.btn {
+    border: 1px solid hotpink;
 }
 
 ul {
@@ -51,9 +71,11 @@ a:hover {
     font-size: 24px;
     box-sizing: border-box;
     width: 560px;
-    text-align: center;
     font-weight: bold;
     color: orange;
+    text-align: center;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 #counter {
