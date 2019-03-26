@@ -133,7 +133,7 @@
 
     if (!searchVal) {
       $.ajax({
-        url: "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=4&q=catchemall&safeSearch=moderate&type=video&videoEmbeddable=true&fields=items(id%2Csnippet)&key=" + apiKey,
+        url: "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=4&q=catchemall&safeSearch=none&type=video&videoEmbeddable=true&fields=items(id%2Csnippet)&key=" + apiKey,
         dataType: "json",
         success: function (json) {
           console.log("[json]", json);
@@ -159,7 +159,7 @@
         searchVal = document.querySelector('.form-control').value;
         document.querySelector('#videos-list').innerHTML = "";
         $.ajax({
-          url: "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=4&q=" + searchVal + "&safeSearch=moderate&type=video&videoEmbeddable=true&fields=items(id%2Csnippet)&key=" + apiKey,
+          url: "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=4&q=" + searchVal + "&safeSearch=none&type=video&videoEmbeddable=true&fields=items(id%2Csnippet)&key=" + apiKey,
           dataType: "json",
           success: function (json) {
             console.log("[json]", json);
